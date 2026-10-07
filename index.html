@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PinkHope — Awareness Today. Hope for Tomorrow.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pink:#e8467c;
+  --pink-soft:#f9dbe6;
+  --bg:#fff6f9;
+  --maroon:#7a2440;
+  --maroon-deep:#5f1830;
+  --ink:#3a2530;
+  --muted:#8a6f7b;
+  --card:#fff0f5;
+  --radius:22px;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--ink);overflow-x:hidden;line-height:1.6}
+h1,h2,h3,.serif{font-family:'Fraunces',serif;font-weight:500;line-height:1.12;color:var(--ink)}
+img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit}
+::selection{background:var(--pink);color:#fff}
+
+/* ---------- progress bar ---------- */
+#progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--pink),#b23a63);z-index:999}
+
+/* ---------- nav ---------- */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;
+  padding:20px 6vw;transition:all .45s var(--ease)}
+nav.scrolled{background:rgba(255,246,249,.85);backdrop-filter:blur(14px);padding:12px 6vw;box-shadow:0 6px 30px rgba(122,36,64,.08)}
+.logo{display:flex;align-items:center;gap:10px;font-family:'Fraunces',serif;font-size:22px;font-weight:600;color:var(--maroon)}
+.logo-dot{width:34px;height:34px;border-radius:50%;background:var(--pink);display:grid;place-items:center;animation:logoPulse 3s ease-in-out infinite}
+.logo-dot svg{width:18px;height:18px}
+@keyframes logoPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+.nav-links{display:flex;gap:34px;font-size:15px;font-weight:500;color:var(--ink)}
+.nav-links a{position:relative;padding:4px 0;opacity:0;transform:translateY(-12px);animation:navIn .6s var(--ease) forwards}
+.nav-links a:nth-child(1){animation-delay:.15s}.nav-links a:nth-child(2){animation-delay:.25s}
+.nav-links a:nth-child(3){animation-delay:.35s}.nav-links a:nth-child(4){animation-delay:.45s}
+.nav-links a:nth-child(5){animation-delay:.55s}
+@keyframes navIn{to{opacity:1;transform:none}}
+.nav-links a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:2px;background:var(--pink);border-radius:2px;transition:width .35s var(--ease)}
+.nav-links a:hover::after{width:100%}
+.btn{display:inline-flex;align-items:center;gap:10px;background:var(--pink);color:#fff;border:none;cursor:pointer;
+  padding:14px 30px;border-radius:100px;font-family:'Inter',sans-serif;font-size:15px;font-weight:600;
+  transition:transform .35s var(--ease),box-shadow .35s var(--ease);box-shadow:0 8px 24px rgba(232,70,124,.35);position:relative;overflow:hidden}
+.btn::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at var(--x,50%) var(--y,50%),rgba(255,255,255,.35),transparent 60%);opacity:0;transition:opacity .3s}
+.btn:hover::before{opacity:1}
+.btn:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 14px 34px rgba(232,70,124,.45)}
+.btn:active{transform:translateY(0) scale(.98)}
+.btn-ghost{background:transparent;color:var(--maroon);border:2px solid var(--pink);box-shadow:none}
+.btn-ghost:hover{color:var(--pink)}
+.btn.sm{padding:11px 24px;font-size:14px}
+.nav-cta{opacity:0;animation:navIn .6s .6s var(--ease) forwards}
+.burger{display:none;background:none;border:none;cursor:pointer;z-index:110;padding:8px;border-radius:10px;transition:background .3s var(--ease)}
+.burger:hover{background:var(--pink-soft)}
+.burger span{display:block;width:26px;height:2.5px;background:var(--maroon);margin:6px 0;transition:.35s var(--ease);border-radius:2px}
+
+/* ---------- hero ---------- */
+.hero{min-height:100vh;display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:5vw;
+  padding:140px 6vw 80px;position:relative;background:
+  radial-gradient(900px 500px at 85% 15%,rgba(232,70,124,.10),transparent 60%),
+  radial-gradient(700px 500px at 5% 90%,rgba(232,70,124,.08),transparent 60%),var(--bg)}
+.hero-blob{position:absolute;border-radius:50%;filter:blur(70px);opacity:.45;pointer-events:none;animation:blobFloat 12s ease-in-out infinite}
+.hero-blob.b1{width:420px;height:420px;background:#ffd3e2;top:-80px;right:-100px}
+.hero-blob.b2{width:300px;height:300px;background:#f7b8cd;bottom:0;left:-80px;animation-delay:-6s}
+@keyframes blobFloat{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(30px,-30px) scale(1.1)}}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:3px;
+  text-transform:uppercase;color:var(--pink);margin-bottom:22px;
+  opacity:0;animation:fadeUp .8s .1s var(--ease) forwards}
+.eyebrow::before{content:"";width:26px;height:2px;background:var(--pink)}
+.hero h1{font-size:clamp(44px,5.4vw,78px);color:var(--maroon)}
+.hero h1 .line{display:block;overflow:hidden}
+.hero h1 .line span{display:block;transform:translateY(110%);animation:lineUp 1s var(--ease) forwards}
+.hero h1 .line:nth-child(1) span{animation-delay:.25s}
+.hero h1 .line:nth-child(2) span{animation-delay:.4s}
+.hero h1 .line:nth-child(3) span{animation-delay:.55s}
+@keyframes lineUp{to{transform:translateY(0)}}
+.hero h1 em{font-style:italic;color:var(--pink)}
+.hero p.lead{max-width:480px;margin:26px 0 36px;color:var(--muted);font-size:17px;
+  opacity:0;animation:fadeUp .9s .8s var(--ease) forwards}
+.hero-actions{display:flex;gap:16px;flex-wrap:wrap;opacity:0;animation:fadeUp .9s 1s var(--ease) forwards}
+@keyframes fadeUp{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+.hero-visual{position:relative;opacity:0;animation:heroImgIn 1.2s .5s var(--ease) forwards}
+@keyframes heroImgIn{from{opacity:0;transform:translateX(60px) scale(.94);clip-path:inset(0 0 100% 0 round 40px)}
+  to{opacity:1;transform:none;clip-path:inset(0 0 0 0 round 40px)}}
+.hero-img{position:relative;border-radius:40px;overflow:hidden;transform-style:preserve-3d;transition:transform .2s ease-out;box-shadow:0 40px 80px rgba(122,36,64,.22)}
+.hero-img img{width:100%;height:560px;object-fit:cover;transform:scale(1.06);transition:transform 1.2s var(--ease)}
+.hero-visual:hover .hero-img img{transform:scale(1)}
+.hero-img::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(95,24,48,.35))}
+.float-card{position:absolute;left:-46px;bottom:52px;background:#fff;border-radius:18px;padding:16px 22px;
+  display:flex;align-items:center;gap:14px;box-shadow:0 24px 50px rgba(122,36,64,.2);z-index:3;
+  animation:cardFloat 5s ease-in-out infinite}
+@keyframes cardFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+.float-card .ic{width:44px;height:44px;border-radius:12px;background:var(--pink-soft);display:grid;place-items:center}
+.float-card .ic svg{width:22px;height:22px;animation:beat 1.6s ease-in-out infinite}
+@keyframes beat{0%,100%{transform:scale(1)}12%{transform:scale(1.18)}24%{transform:scale(1)}36%{transform:scale(1.12)}48%{transform:scale(1)}}
+.float-card b{display:block;font-size:14px;color:var(--maroon)}
+.float-card small{color:var(--muted);font-size:12px}
+.scroll-hint{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--muted);font-size:11px;letter-spacing:2px;text-transform:uppercase}
+.scroll-hint .wheel{width:22px;height:36px;border:2px solid var(--pink);border-radius:14px;position:relative}
+.scroll-hint .wheel::after{content:"";position:absolute;top:6px;left:50%;width:4px;height:8px;margin-left:-2px;border-radius:4px;background:var(--pink);animation:wheel 1.6s infinite}
+@keyframes wheel{0%{opacity:1;transform:translateY(0)}100%{opacity:0;transform:translateY(12px)}}
+
+/* ---------- marquee ---------- */
+.marquee{background:var(--maroon);overflow:hidden;padding:18px 0;transform:rotate(-1.2deg) scale(1.02);margin:-6px 0 0;box-shadow:0 20px 50px rgba(95,24,48,.25)}
+.marquee-track{display:flex;gap:48px;width:max-content;animation:marquee 22s linear infinite}
+.marquee:hover .marquee-track{animation-play-state:paused}
+.marquee-track span{font-family:'Fraunces',serif;font-size:19px;color:#ffd6e4;white-space:nowrap;display:flex;align-items:center;gap:48px}
+.marquee-track i{font-style:normal;color:var(--pink);font-size:14px}
+@keyframes marquee{to{transform:translateX(-50%)}}
+
+/* ---------- section base ---------- */
+section{padding:110px 6vw}
+.sec-head{text-align:center;max-width:780px;margin:0 auto 70px}
+.sec-head h2{font-size:clamp(34px,3.6vw,52px);color:var(--maroon)}
+.sec-head p{color:var(--muted);margin-top:18px;font-size:16.5px}
+
+/* ---------- reveal system ---------- */
+.reveal{opacity:0;transform:translateY(44px);transition:opacity .9s var(--ease),transform .9s var(--ease);transition-delay:var(--d,0s)}
+.reveal.in{opacity:1;transform:none}
+.reveal-l{opacity:0;transform:translateX(-54px);transition:opacity .9s var(--ease),transform .9s var(--ease);transition-delay:var(--d,0s)}
+.reveal-l.in{opacity:1;transform:none}
+.reveal-r{opacity:0;transform:translateX(54px);transition:opacity .9s var(--ease),transform .9s var(--ease);transition-delay:var(--d,0s)}
+.reveal-r.in{opacity:1;transform:none}
+
+/* ---------- understanding ---------- */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:34px}
+.stat{background:#fff;border-radius:var(--radius);padding:44px 36px;box-shadow:0 14px 40px rgba(122,36,64,.07);
+  transition:transform .5s var(--ease),box-shadow .5s var(--ease);position:relative;overflow:hidden}
+.stat::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--pink),#ffb3cc);transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease)}
+.stat:hover{transform:translateY(-10px);box-shadow:0 28px 60px rgba(122,36,64,.14)}
+.stat:hover::before{transform:scaleX(1)}
+.stat .ic{width:56px;height:56px;border-radius:16px;background:var(--pink-soft);display:grid;place-items:center;margin-bottom:22px;transition:transform .5s var(--ease)}
+.stat:hover .ic{transform:rotate(-8deg) scale(1.1)}
+.stat .ic svg{width:26px;height:26px}
+.stat h3{font-size:21px;margin-bottom:4px}
+.stat p{color:var(--muted);font-size:14.5px}
+.big-stat{font-family:'Fraunces',serif;font-size:64px;color:var(--pink);line-height:1;font-weight:600}
+.big-stat small{font-size:22px;color:var(--muted);font-family:'Inter',sans-serif;font-weight:500}
+
+/* ---------- signs (dark) ---------- */
+.signs{background:var(--maroon);border-radius:56px;margin:0 3vw;position:relative;overflow:hidden;color:#ffe4ee}
+.signs::before{content:"";position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(232,70,124,.28),transparent 70%);top:-200px;right:-200px;animation:blobFloat 14s ease-in-out infinite}
+.signs h2{color:#fff;font-size:clamp(34px,3.6vw,52px)}
+.signs .sec-head p{color:#f0bccd}
+.signs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;position:relative;z-index:2}
+.sign-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:34px 30px;
+  backdrop-filter:blur(6px);transition:transform .45s var(--ease),background .45s,border-color .45s;cursor:default}
+.sign-card:hover{transform:translateY(-8px);background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.3)}
+.sign-card .ic{width:50px;height:50px;border-radius:14px;background:var(--pink);display:grid;place-items:center;margin-bottom:20px;transition:transform .45s var(--ease)}
+.sign-card:hover .ic{transform:scale(1.15) rotate(-6deg)}
+.sign-card .ic svg{width:24px;height:24px}
+.sign-card h3{color:#fff;font-size:19px;margin-bottom:10px}
+.sign-card p{color:#eec3d2;font-size:14px}
+
+/* ---------- steps ---------- */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;position:relative;margin-top:20px}
+.steps::before{content:"";position:absolute;top:44px;left:16%;right:16%;height:2px;
+  background:repeating-linear-gradient(90deg,var(--pink) 0 10px,transparent 10px 20px);opacity:.4}
+.step{text-align:center;position:relative}
+.step .ring{width:88px;height:88px;margin:0 auto 26px;position:relative}
+.step .ring svg{width:88px;height:88px;transform:rotate(-90deg)}
+.step .ring circle{fill:none;stroke-width:3}
+.step .ring .bgc{stroke:var(--pink-soft)}
+.step .ring .fgc{stroke:var(--pink);stroke-linecap:round;stroke-dasharray:264;stroke-dashoffset:264;transition:stroke-dashoffset 1.4s var(--ease)}
+.step.in .ring .fgc{stroke-dashoffset:0}
+.step .ring b{position:absolute;inset:0;display:grid;place-items:center;font-family:'Fraunces',serif;font-size:24px;color:var(--maroon)}
+.step h3{font-size:22px;margin-bottom:10px}
+.step p{color:var(--muted);font-size:14.5px;max-width:280px;margin:0 auto}
+
+/* ---------- wellness split ---------- */
+.wellness{display:grid;grid-template-columns:1fr 1fr;gap:6vw;align-items:center}
+.wellness .img-wrap{position:relative}
+.wellness .img-wrap img{border-radius:32px;width:100%;height:520px;object-fit:cover;box-shadow:0 30px 70px rgba(122,36,64,.2)}
+.wellness .img-wrap::before{content:"";position:absolute;inset:-18px;border:2px dashed var(--pink);border-radius:44px;opacity:.35;animation:spin 30s linear infinite}
+@keyframes spin{to{transform:rotate(0.001deg)}}
+.wellness .badge{position:absolute;right:-20px;top:-20px;background:var(--maroon);color:#fff;border-radius:18px;padding:16px 22px;text-align:center;box-shadow:0 20px 44px rgba(95,24,48,.35);animation:cardFloat 6s ease-in-out infinite}
+.wellness .badge b{font-family:'Fraunces',serif;font-size:26px;display:block}
+.wellness .badge small{font-size:11px;letter-spacing:1px;text-transform:uppercase;opacity:.8}
+.wellness h2{font-size:clamp(34px,3.4vw,48px);color:var(--maroon);margin-bottom:22px}
+.wellness .txt p{color:var(--muted);margin-bottom:26px;font-size:16px}
+.checks{list-style:none;margin-bottom:34px}
+.checks li{display:flex;gap:14px;align-items:flex-start;margin-bottom:16px;font-size:15px;font-weight:500;color:var(--ink);
+  opacity:0;transform:translateX(24px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+.checks.in li{opacity:1;transform:none}
+.checks.in li:nth-child(1){transition-delay:.1s}.checks.in li:nth-child(2){transition-delay:.25s}
+.checks .ck{flex:none;width:26px;height:26px;border-radius:50%;background:var(--pink-soft);display:grid;place-items:center;margin-top:1px}
+.checks .ck svg{width:14px;height:14px}
+
+/* ---------- resources ---------- */
+.res-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:26px}
+.res-card{background:#fff;border-radius:22px;overflow:hidden;box-shadow:0 12px 36px rgba(122,36,64,.08);
+  transition:transform .5s var(--ease),box-shadow .5s var(--ease)}
+.res-card:hover{transform:translateY(-10px);box-shadow:0 30px 60px rgba(122,36,64,.16)}
+.res-card .imgbox{height:210px;overflow:hidden;position:relative}
+.res-card .imgbox img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
+.res-card:hover .imgbox img{transform:scale(1.12) rotate(1deg)}
+.res-card .imgbox::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 50%,rgba(232,70,124,.45));opacity:0;transition:opacity .5s}
+.res-card:hover .imgbox::after{opacity:1}
+.res-card .body{padding:24px 26px 30px}
+.res-card h3{font-size:19px;display:flex;align-items:center;justify-content:space-between}
+.res-card h3 .arr{width:30px;height:30px;border-radius:50%;background:var(--pink-soft);display:grid;place-items:center;transition:all .4s var(--ease)}
+.res-card:hover h3 .arr{background:var(--pink)}
+.res-card:hover h3 .arr svg{stroke:#fff;transform:translateX(2px)}
+.res-card p{color:var(--muted);font-size:13.5px;margin-top:8px}
+
+/* ---------- footer ---------- */
+footer{background:var(--maroon-deep);color:#eec3d2;padding:90px 6vw 40px;border-radius:56px 56px 0 0;position:relative;overflow:hidden}
+footer::before{content:"";position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(232,70,124,.2),transparent 70%);bottom:-250px;left:-150px}
+.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1.2fr 1.4fr;gap:50px;position:relative;z-index:2;margin-bottom:70px}
+.foot-grid h4{color:#fff;font-family:'Fraunces',serif;font-size:19px;margin-bottom:22px}
+.foot-grid a{display:block;margin-bottom:12px;font-size:14.5px;transition:transform .3s var(--ease),color .3s}
+.foot-grid a:hover{color:#fff;transform:translateX(6px)}
+.foot-brand p{font-size:14px;margin:18px 0 24px;max-width:280px}
+.socials{display:flex;gap:12px}
+.socials a{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.1);display:grid;place-items:center;margin:0;transition:all .35s var(--ease)}
+.socials a:hover{background:var(--pink);transform:translateY(-4px)}
+.socials svg{width:16px;height:16px;fill:#fff}
+.contact li{display:flex;gap:12px;align-items:center;list-style:none;margin-bottom:14px;font-size:14px}
+.contact svg{width:16px;height:16px;flex:none;stroke:var(--pink)}
+.newsletter p{font-size:14px;margin-bottom:18px}
+.nl-form{display:flex;background:rgba(255,255,255,.08);border-radius:100px;padding:6px;border:1px solid rgba(255,255,255,.15)}
+.nl-form input{flex:1;background:none;border:none;outline:none;color:#fff;padding:10px 18px;font-size:14px;font-family:'Inter',sans-serif;min-width:0}
+.nl-form input::placeholder{color:#c78fa4}
+.nl-form button{width:44px;height:44px;flex:none;border-radius:50%;border:none;background:var(--pink);cursor:pointer;display:grid;place-items:center;transition:transform .35s var(--ease)}
+.nl-form button:hover{transform:rotate(-40deg) scale(1.08)}
+.nl-form button svg{width:18px;height:18px}
+.nl-msg{font-size:13px;margin-top:12px;color:#ffb3cc;min-height:18px}
+.foot-bottom{border-top:1px solid rgba(255,255,255,.12);padding-top:30px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;font-size:12.5px;position:relative;z-index:2}
+.disclaimer{text-align:center;font-size:12px;opacity:.7;margin-top:22px;position:relative;z-index:2}
+
+@media(max-width:1000px){
+  .hero{grid-template-columns:1fr;padding-top:120px}
+  .hero-img img{height:420px}
+  .float-card{left:10px}
+  .stats,.signs-grid,.steps{grid-template-columns:1fr;max-width:560px;margin-left:auto;margin-right:auto}
+  .steps::before{display:none}
+  .wellness{grid-template-columns:1fr}
+  .res-grid{grid-template-columns:repeat(2,1fr)}
+  .foot-grid{grid-template-columns:1fr 1fr}
+.nav-links{position:fixed;inset:0;background:rgba(255,246,249,.92);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);flex-direction:column;align-items:center;justify-content:center;gap:30px;font-size:24px;
+  clip-path:circle(0 at calc(100% - 44px) 40px);transition:clip-path .6s var(--ease);z-index:105}
+.nav-links.open{clip-path:circle(150% at calc(100% - 44px) 40px)}
+.nav-links a{opacity:1;animation:none;transform:none;position:relative;padding:8px 0}
+.nav-links a::after{content:"";position:absolute;left:50%;bottom:0;transform:translateX(-50%);width:0;height:2px;background:var(--pink);border-radius:2px;transition:width .35s var(--ease)}
+.nav-links a:hover::after{width:60%}
+  .burger{display:block}
+  .burger.open span:nth-child(1){transform:translateY(8px) rotate(45deg)}
+  .burger.open span:nth-child(2){opacity:0}
+  .burger.open span:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
+  .nav-cta{display:none}
+}
+@media(max-width:600px){.res-grid,.foot-grid{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal,.reveal-l,.reveal-r,.hero p.lead,.hero-actions,.hero-visual,.nav-links a,.nav-cta,.eyebrow,.hero h1 .line span{opacity:1!important;transform:none!important}}
+</style>
+<base target="_blank">
+</head>
+<body>
+
+<div id="progress"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#home" class="logo"><span class="logo-dot"><svg viewBox="0 0 24 24" fill="#fff"><path d="M12 21s-7.5-4.9-9.7-9C.8 8.9 2.4 5.5 5.6 4.6 7.7 4 10 4.9 12 7c2-2.1 4.3-3 6.4-2.4 3.2.9 4.8 4.3 3.3 7.4-2.2 4.1-9.7 9-9.7 9z"/></svg></span>PinkHope</a>
+  <div class="nav-links" id="navLinks">
+    <a href="#home">Home</a><a href="#about">About</a><a href="#signs">Signs</a><a href="#prevention">Prevention</a><a href="#resources">Resources</a>
+  </div>
+  <button class="btn sm nav-cta" onclick="document.getElementById('resources').scrollIntoView({behavior:'smooth'})">Get Support</button>
+  <button class="burger" id="burger" aria-label="menu"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="home">
+  <div class="hero-blob b1"></div><div class="hero-blob b2"></div>
+  <div>
+    <span class="eyebrow">Awareness Month</span>
+    <h1>
+      <span class="line"><span>Awareness</span></span>
+      <span class="line"><span><em>Today.</em> Hope</span></span>
+      <span class="line"><span>for <em>Tomorrow.</em></span></span>
+    </h1>
+    <p class="lead">Learn the signs, understand your breast health, and know when to seek professional support. We're here to guide you every step of the way.</p>
+    <div class="hero-actions">
+      <button class="btn" onclick="document.getElementById('signs').scrollIntoView({behavior:'smooth'})">Learn the Signs
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      <button class="btn btn-ghost" onclick="document.getElementById('resources').scrollIntoView({behavior:'smooth'})">Find Resources</button>
+    </div>
+  </div>
+  <div class="hero-visual" id="heroVisual">
+    <div class="hero-img" id="heroImg">
+      <img src="images/doc.jpg" alt="Smiling female doctor in white coat">
+    </div>
+    <div class="float-card" id="floatCard">
+      <span class="ic"><svg viewBox="0 0 24 24" fill="#e8467c"><path d="M12 21s-7.5-4.9-9.7-9C.8 8.9 2.4 5.5 5.6 4.6 7.7 4 10 4.9 12 7c2-2.1 4.3-3 6.4-2.4 3.2.9 4.8 4.3 3.3 7.4-2.2 4.1-9.7 9-9.7 9z"/></svg></span>
+      <span><b>Early Detection</b><small>Saves lives every day</small></span>
+    </div>
+  </div>
+  <div class="scroll-hint"><div class="wheel"></div>Scroll</div>
+</header>
+
+<!-- MARQUEE -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track" id="marqueeTrack">
+    <span>Awareness <i>✦</i> Early Detection <i>✦</i> Hope <i>✦</i> Support <i>✦</i> Prevention <i>✦</i> Community <i>✦</i></span>
+    <span>Awareness <i>✦</i> Early Detection <i>✦</i> Hope <i>✦</i> Support <i>✦</i> Prevention <i>✦</i> Community <i>✦</i></span>
+  </div>
+</div>
+
+<!-- UNDERSTANDING -->
+<section id="about">
+  <div class="sec-head reveal">
+    <h2>Understanding Breast Cancer</h2>
+    <p>Breast cancer awareness is more than just a pink ribbon — it's about education, support, and proactive health management. Understanding the facts and your body is the first step toward prevention and early intervention.</p>
+  </div>
+  <div class="stats">
+    <div class="stat reveal" style="--d:.05s">
+      <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#e8467c" stroke-width="2" stroke-linecap="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></div>
+      <div class="big-stat"><span id="counter">0</span> <small>in 8</small></div>
+      <p style="margin-top:14px">Women may be affected during their lifetime. Global statistics highlight the importance of staying informed and vigilant.</p>
+    </div>
+    <div class="stat reveal" style="--d:.2s">
+      <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#e8467c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></div>
+      <h3>Early Action</h3>
+      <p>Knowing changes in your body can help you seek appropriate medical advice immediately, significantly improving outcomes.</p>
+    </div>
+    <div class="stat reveal" style="--d:.35s">
+      <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#e8467c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+      <h3>Professional Care</h3>
+      <p>Screening and medical evaluation are important parts of breast health. Regular check-ups with professionals are essential.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SIGNS -->
+<section class="signs" id="signs">
+  <div class="sec-head reveal">
+    <h2>Know the Signs. Know Your Body.</h2>
+    <p>Recognizing what is normal for you is the best way to notice any unusual changes. If you experience any of these, consult a healthcare provider.</p>
+  </div>
+  <div class="signs-grid">
+    <div class="sign-card reveal" style="--d:.0s"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/></svg></div><h3>New lump or mass</h3><p>A painless, hard mass that has irregular edges is more likely to be cancer, but some can be tender and soft.</p></div>
+    <div class="sign-card reveal" style="--d:.08s"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M12 3v18M5 8l7-5 7 5M7 21h10"/></svg></div><h3>Breast swelling</h3><p>Swelling of all or part of a breast, even if no lump is felt, should be evaluated by a medical professional.</p></div>
+    <div class="sign-card reveal" style="--d:.16s"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M4 4v16M8 8v8M12 4v16M16 10v6M20 6v10"/></svg></div><h3>Skin changes</h3><p>Skin irritation, dimpling, redness, scaliness, or thickening of the nipple or breast skin area.</p></div>
+    <div class="sign-card reveal" style="--d:.24s"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div><h3>Nipple changes</h3><p>Nipple retraction (turning inward) or pain in the nipple area are signs that require attention.</p></div>
+    <div class="sign-card reveal" style="--d:.32s"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.7S6 10 6 14a6 6 0 0 0 12 0c0-4-6-11.3-6-11.3z"/></svg></div><h3>Unusual discharge</h3><p>Nipple discharge other than breast milk (especially if it is bloody) is an important sign to check.</p></div>
+    <div class="sign-card reveal" style="--d:.4s"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div><h3>Change in size or shape</h3><p>Any significant change in the size or the shape of the breast that is unusual for you.</p></div>
+  </div>
+</section>
+
+<!-- STEPS -->
+<section id="prevention">
+  <div class="sec-head reveal">
+    <h2>Your awareness matters.</h2>
+  </div>
+  <div class="steps">
+    <div class="step reveal" style="--d:0s"><div class="ring"><svg viewBox="0 0 88 88"><circle class="bgc" cx="44" cy="44" r="42"/><circle class="fgc" cx="44" cy="44" r="42"/></svg><b>01</b></div><h3>Notice</h3><p>Pay attention to changes that are unusual for you during your daily routine.</p></div>
+    <div class="step reveal" style="--d:.15s"><div class="ring"><svg viewBox="0 0 88 88"><circle class="bgc" cx="44" cy="44" r="42"/><circle class="fgc" cx="44" cy="44" r="42"/></svg><b>02</b></div><h3>Check</h3><p>Don't ignore persistent or concerning changes. Monitor them for a few days.</p></div>
+    <div class="step reveal" style="--d:.3s"><div class="ring"><svg viewBox="0 0 88 88"><circle class="bgc" cx="44" cy="44" r="42"/><circle class="fgc" cx="44" cy="44" r="42"/></svg><b>03</b></div><h3>Speak</h3><p>Talk to a qualified healthcare professional about any changes you have found.</p></div>
+  </div>
+</section>
+
+<!-- WELLNESS SPLIT -->
+<section>
+  <div class="wellness">
+    <div class="img-wrap reveal-l">
+      <img src="images/yoga.jpg" alt="Woman practicing yoga at home">
+      <div class="badge"><b>5 min</b><small>Self-exam monthly</small></div>
+    </div>
+    <div class="txt reveal-r">
+      <h2>Know your body.<br>Notice changes.<br><em style="color:var(--pink)">Speak up.</em></h2>
+      <p>Self-awareness is the foundation of breast health. Being familiar with how your breasts look and feel makes it easier to spot changes. We encourage everyone to make breast health a part of their overall wellness routine.</p>
+      <ul class="checks" id="checks">
+        <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="#e8467c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>Regular self-exams help you identify baseline normal.</li>
+        <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="#e8467c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>Early detection through awareness saves lives.</li>
+      </ul>
+      <button class="btn" onclick="document.getElementById('signs').scrollIntoView({behavior:'smooth'})">Learn More</button>
+    </div>
+  </div>
+</section>
+
+<!-- RESOURCES -->
+<section id="resources" style="padding-top:40px">
+  <div class="sec-head reveal" style="display:flex;justify-content:space-between;align-items:flex-end;text-align:left;max-width:100%;gap:30px;flex-wrap:wrap">
+    <h2>Healthcare Resources</h2>
+    <p style="max-width:420px;margin-top:0">Find the support and information you need through our curated network of medical professionals and educational materials.</p>
+  </div>
+  <div class="res-grid">
+    <a href="#" class="res-card reveal" style="--d:.0s"><div class="imgbox"><img src="images/screen.jpg" alt="Mammogram screening machine"></div>
+      <div class="body"><h3>Screening <span class="arr"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#e8467c" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></h3><p>Schedule your annual mammogram and clinical exams.</p></div></a>
+    <a href="#" class="res-card reveal" style="--d:.1s"><div class="imgbox"><img src="images/health facility.jpg" alt="Modern hospital building"></div>
+      <div class="body"><h3>Healthcare Facilities <span class="arr"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#e8467c" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></h3><p>Find accredited breast health centers near you.</p></div></a>
+    <a href="#" class="res-card reveal" style="--d:.2s"><div class="imgbox"><img src="images/help suport.jpg" alt="Support group holding hands"></div>
+      <div class="body"><h3>Support <span class="arr"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#e8467c" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></h3><p>Join support groups and connect with survivors.</p></div></a>
+    <a href="#" class="res-card reveal" style="--d:.3s"><div class="imgbox"><img src="images/faq.jpg" alt="Pink ribbon with stethoscope"></div>
+      <div class="body"><h3>FAQs <span class="arr"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#e8467c" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></h3><p>Get answers to common breast health questions.</p></div></a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-grid">
+    <div class="foot-brand reveal" style="--d:0s">
+      <a href="#home" class="logo" style="color:#fff"><span class="logo-dot"><svg viewBox="0 0 24 24" fill="#fff"><path d="M12 21s-7.5-4.9-9.7-9C.8 8.9 2.4 5.5 5.6 4.6 7.7 4 10 4.9 12 7c2-2.1 4.3-3 6.4-2.4 3.2.9 4.8 4.3 3.3 7.4-2.2 4.1-9.7 9-9.7 9z"/></svg></span>PinkHope</a>
+      <p>Awareness today. Hope for tomorrow. Empowering individuals through education and support for better breast health.</p>
+      <div class="socials">
+        <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M13.5 22v-8h2.7l.4-3.2h-3.1V8.7c0-.9.3-1.6 1.6-1.6h1.6V4.2c-.3 0-1.3-.1-2.4-.1-2.4 0-4 1.4-4 4.1v2.6H7.5V14h2.8v8h3.2z"/></svg></a>
+        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2zm0 3.6a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4zm0 10.2a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-10.4a1.4 1.4 0 1 0 0-2.9 1.4 1.4 0 0 0 0 2.9z"/></svg></a>
+        <a href="#" aria-label="Twitter"><svg viewBox="0 0 24 24"><path d="M22 5.9c-.7.3-1.5.6-2.3.7.8-.5 1.5-1.3 1.8-2.3-.8.5-1.7.8-2.6 1A4.1 4.1 0 0 0 12 8.9 11.6 11.6 0 0 1 3.4 4.7a4.1 4.1 0 0 0 1.3 5.5c-.7 0-1.3-.2-1.9-.5v.1c0 2 1.4 3.7 3.3 4a4.2 4.2 0 0 1-1.8.1 4.1 4.1 0 0 0 3.8 2.9A8.3 8.3 0 0 1 2 18.4a11.7 11.7 0 0 0 6.3 1.8c7.5 0 11.7-6.3 11.7-11.7v-.5c.8-.6 1.5-1.3 2-2.1z"/></svg></a>
+        <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M4.98 3.5A2.5 2.5 0 1 1 5 8.5a2.5 2.5 0 0 1-.02-5zM3 9h4v12H3zM9 9h3.8v1.7h.1c.5-1 1.8-2 3.7-2 4 0 4.7 2.6 4.7 6V21h-4v-5.5c0-1.3 0-3-1.9-3s-2.2 1.4-2.2 2.9V21H9z"/></svg></a>
+      </div>
+    </div>
+    <div class="reveal" style="--d:.1s"><h4>Quick Links</h4>
+      <a href="#home">Home</a><a href="#about">About Us</a><a href="#signs">Know the Signs</a><a href="#resources">Resources</a></div>
+    <div class="reveal" style="--d:.2s"><h4>Contact</h4>
+      <ul class="contact">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z" opacity="0"/><path d="M22 6l-10 7L2 6"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg>worldhealthorg@gmail.com</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.8a2 2 0 0 1-.4 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.9.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>+233 30 123 4567</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Accra, Ghana</li>
+      </ul></div>
+    <div class="reveal" style="--d:.3s"><h4>Stay Informed</h4>
+      <div class="newsletter"><p>Subscribe to our newsletter for health tips and updates.</p>
+        <form class="nl-form" id="nlForm">
+          <input type="email" id="nlEmail" placeholder="Your email" required>
+          <button type="submit" aria-label="Subscribe"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        </form>
+        <div class="nl-msg" id="nlMsg"></div>
+      </div></div>
+  </div>
+  <div class="foot-bottom">
+    <span>© <span id="year"></span> PinkHope. All rights reserved.</span>
+    <span><a href="#" style="display:inline;margin:0 10px">Privacy Policy</a> · <a href="#" style="display:inline;margin:0 10px">Terms of Service</a></span>
+  </div>
+  <p class="disclaimer">"Pink Hope provides educational information and does not replace professional medical advice. Always consult a qualified healthcare provider regarding your health."</p>
+</footer>
+
+<script>
+// ---------- progress bar ----------
+const bar = document.getElementById('progress');
+addEventListener('scroll', () => {
+  const h = document.documentElement;
+  bar.style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight) * 100) + '%';
+}, {passive:true});
+
+// ---------- nav state ----------
+const nav = document.getElementById('nav');
+addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 40), {passive:true});
+
+// ---------- mobile menu ----------
+const burger = document.getElementById('burger'), navLinks = document.getElementById('navLinks');
+burger.addEventListener('click', () => {
+  burger.classList.toggle('open'); navLinks.classList.toggle('open');
+});
+navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  burger.classList.remove('open'); navLinks.classList.remove('open');
+}));
+
+// ---------- reveal on scroll ----------
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  });
+}, {threshold:.18});
+document.querySelectorAll('.reveal,.reveal-l,.reveal-r,.step,.checks').forEach(el => io.observe(el));
+
+// ---------- animated counter ----------
+const counter = document.getElementById('counter');
+let counted = false;
+new IntersectionObserver((entries, obs) => {
+  if (entries[0].isIntersecting && !counted) {
+    counted = true; obs.disconnect();
+    const start = performance.now(), dur = 1600;
+    (function tick(now){
+      const p = Math.min((now - start) / dur, 1);
+      counter.textContent = Math.round(1 + (1 - Math.pow(1 - p, 3)) * 7);
+      if (p < 1) requestAnimationFrame(tick); else counter.textContent = 8;
+    })(start);
+  }
+}, {threshold:.6}).observe(counter);
+
+// ---------- hero tilt + parallax on mouse ----------
+const heroVisual = document.getElementById('heroVisual'),
+      heroImg = document.getElementById('heroImg'),
+      floatCard = document.getElementById('floatCard');
+document.querySelector('.hero').addEventListener('mousemove', e => {
+  const r = heroVisual.getBoundingClientRect();
+  const x = (e.clientX - (r.left + r.width/2)) / r.width,
+        y = (e.clientY - (r.top + r.height/2)) / r.height;
+  heroImg.style.transform = `rotateY(${x*7}deg) rotateX(${-y*7}deg)`;
+  floatCard.style.translate = `${x*-18}px ${y*-14}px`;
+});
+document.querySelector('.hero').addEventListener('mouseleave', () => {
+  heroImg.style.transform = ''; floatCard.style.translate = '';
+});
+
+// ---------- button spotlight follows cursor ----------
+document.querySelectorAll('.btn').forEach(b => {
+  b.addEventListener('mousemove', e => {
+    const r = b.getBoundingClientRect();
+    b.style.setProperty('--x', ((e.clientX - r.left)/r.width*100) + '%');
+    b.style.setProperty('--y', ((e.clientY - r.top)/r.height*100) + '%');
+  });
+});
+
+// ---------- newsletter ----------
+document.getElementById('nlForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const msg = document.getElementById('nlMsg'), email = document.getElementById('nlEmail');
+  msg.textContent = `Thank you! ${email.value} is now subscribed.`;
+  msg.style.color = '#8ef0c1';
+  email.value = '';
+  setTimeout(() => { msg.textContent = ''; msg.style.color = ''; }, 4000);
+});
+
+document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
